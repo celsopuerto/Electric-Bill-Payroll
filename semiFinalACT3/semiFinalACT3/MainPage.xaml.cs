@@ -15,6 +15,7 @@ namespace semiFinalACT3
         {
             InitializeComponent();
         }
+        /*
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -25,9 +26,10 @@ namespace semiFinalACT3
                 print.ItemsSource = tableList;
             }
         }
+        */
         public async void BtnAdd_Clicked(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(meterNo.Text) && !string.IsNullOrWhiteSpace(previousR.Text) && !string.IsNullOrWhiteSpace(presentR.Text))
+            if (!string.IsNullOrWhiteSpace(meterNo.Text) && !string.IsNullOrWhiteSpace(previousR.Text) && !string.IsNullOrWhiteSpace(presentR.Text) && h.IsChecked == true || b.IsChecked == true)
             {
                 try
                 {
@@ -124,10 +126,14 @@ namespace semiFinalACT3
                     await DisplayAlert("Admin", "Meter, Present, and Previous must be a Number!", "OK");
                 }
             }
+            else
+            {
+                await DisplayAlert("Admin", "Meter, Present, Previous, and Type of Registration must not be Empty!", "OK");
+            }
         }
         public async void BtnUpdate_Clicked(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(meterNo.Text) && !string.IsNullOrWhiteSpace(previousR.Text) && !string.IsNullOrWhiteSpace(presentR.Text))
+            if (!string.IsNullOrWhiteSpace(meterNo.Text) && !string.IsNullOrWhiteSpace(previousR.Text) && !string.IsNullOrWhiteSpace(presentR.Text) && h.IsChecked == true || b.IsChecked == true)
             {
                 try
                 {
@@ -212,7 +218,7 @@ namespace semiFinalACT3
                         if (electricity != null)
                         {
                             Application.Current.Properties["status"] = status;
-                            Application.Current.Properties["data"] = electricity.meterNo.ToString();
+                            Application.Current.Properties["data"] = table.meterNo.ToString();
 
                             await Navigation.PushAsync(new print());
                         }
@@ -232,6 +238,10 @@ namespace semiFinalACT3
                 {
                     await DisplayAlert("Admin", "Meter, Present, and Previous must be a Number!", "OK");
                 }
+            }
+            else
+            {
+                await DisplayAlert("Admin", "Meter, Present, Previous, and Type of Registration must not be Empty!", "OK");
             }
         }
         public async void BtnDelete_Clicked(object sender, EventArgs e)

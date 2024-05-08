@@ -22,34 +22,36 @@ namespace semiFinalACT3
             string status = $"{Application.Current.Properties["status"]}";
             int meter = int.Parse($"{Application.Current.Properties["data"]}");
 
-            var data = await App.db.SearchAsync(meter);
+            var data = await App.db.GetAllAsync();
+
             if (data != null)
             {
                 if(status == "add")
                 {
-                    await DisplayAlert("Success", "Data Passed and Added Successfully", "OK");
-                    printData.ItemsSource = new List<table> { data };
+                    await DisplayAlert("Success", "Meter Number: " + meter + "'s Data Passed and Added Successfully", "OK");
+                    printData.ItemsSource = data;
                 }
                 else if(status == "update")
                 {
-                    await DisplayAlert("Success", "Data Passed and Updated Successfully", "OK");
-                    printData.ItemsSource = new List<table> { data };
+                    await DisplayAlert("Success", "Meter Number: " + meter + "'s Data Passed and Updated Successfully", "OK");
+                    printData.ItemsSource = data;
                 }
                 else if(status == "delete")
                 {
-                    await DisplayAlert("Success", "Data Deleted Successfully", "OK");
-                    printData.ItemsSource = new List<table> { data };
-                    await App.db.DeleteAsync(data);
+                    var delete = await App.db.SearchAsync(meter);
+                    
+                    await DisplayAlert("Success", "Meter Number: " + meter + "'s Data Deleted Successfully", "OK");
+                    await App.db.DeleteAsync(delete);
+
+                    var refresh = await App.db.GetAllAsync();
+                    printData.ItemsSource = refresh;
                 }
             }
             else
             {
-                await DisplayAlert("Notice!", "Data Doesn't Exist!", "OK");
+                await DisplayAlert("Notice!", "No Data Found!", "OK");
             }
-
-
         }
-
         private void Back(object sender, EventArgs e)
         {
             Navigation.PushAsync(new MainPage());
