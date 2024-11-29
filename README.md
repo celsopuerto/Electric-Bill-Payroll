@@ -40,7 +40,5 @@ A mobile application built with **Xamarin.Forms** and **SQLite-Net-PCL** to mana
 - **Framework:** Xamarin.Forms
 - **Database:** SQLite-Net-PCL
 - **Languages:** C# (backend logic) and XAML (UI design)
-- **Optional Charting Library:** Microcharts
-- **Deployment:** Android APK, iOS App Store
-
+- **Deployment:** Android APK
 ---
